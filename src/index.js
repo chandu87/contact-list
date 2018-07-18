@@ -8,10 +8,12 @@ import bodyParser from "body-parser";
 app.use(bodyParser.urlencoded({ extended: false }));
 //parse appliation JSON
 app.use(bodyParser.json());
+app.set("view engine","ejs");
 
 //GET ROUTE for HOME
 app.get("/", function(req, res) {
-  res.send("Hello world");
+  // res.send("Hello world");
+  res.render("index");
 });
 
 //GET ROUTE for Contacts

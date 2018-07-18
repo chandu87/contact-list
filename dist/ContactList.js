@@ -66,11 +66,10 @@ class ContactList {
     console.log("------- List before update");
     console.log(this.list);
     const updateId = this.findIndex(contactId);
-    console.log(contactToUpdate);
-    console.log(this.list[updateId]);
+    // console.log(contactToUpdate);
+    //   console.log(this.list[updateId]);
     if (updateId !== -1) {
       this.list[updateId] = contactToUpdate;
-
       console.log("------- List after update -----------");
       console.log(this.list);
       this.save(this.list);

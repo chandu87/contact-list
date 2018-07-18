@@ -20,10 +20,12 @@ const myContactList = new _ContactList.ContactList("./my_list.json");
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 //parse appliation JSON
 app.use(_bodyParser2.default.json());
+app.set("view engine", "ejs");
 
 //GET ROUTE for HOME
 app.get("/", function (req, res) {
-  res.send("Hello world");
+  // res.send("Hello world");
+  res.render("index");
 });
 
 //GET ROUTE for Contacts
@@ -54,7 +56,6 @@ app.post("/contacts", function (req, res) {
 //PATCH ROUTE for updating contacts which can be found in POSTMAN
 app.patch("/contacts/:contact_id", function (req, res) {
   const contactToUpdate = new _ContactList.Contact(req.body);
-  console.log(contactToUpdate);
   res.send(myContactList.updateContact(req.params.contact_id, contactToUpdate));
 });
 
