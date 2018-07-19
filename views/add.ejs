@@ -1,0 +1,17 @@
+<%include ./partials/header%>  
+<div class="container" style="margin-top:50px">
+<h1>Contacts Page</h1>
+<a href="/" class="btn btn-primary">Home Page</a>
+<a href="/contacts" class="btn btn-primary">Contacts</a>
+<form action="/contacts" method="POST">
+    <label>Name :</label>
+    <input type="text" name="name" placeholder="Enter Name">
+    <label>Age :</label>
+    <input type="number" name="age" placeholder="Enter age">
+    <input type="number" name="id" placeholder="Enter unique id">  
+    <input type="submit" class="btn btn-primary" value="Add Contact">  
+</form>
+
+</div>
+<% include ./partials/footer %>
+

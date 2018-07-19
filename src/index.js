@@ -36,12 +36,19 @@ app.get("/contacts", function(req, res) {
 app.get("/test", function(req, res) {
   res.send({ name: "chandra" });
 });
+app.get("/contacts/add", function(req, res){
+  res.render("add");
+});
 
 //POST ROUTE for Adding contacts
 app.post("/contacts", function(req, res) {
   // console.log(req.body);
+  console.log(req.body);
   const contact = new Contact(req.body);
-  myContactList.addContact(contact).then(list => res.send(list));
+  console.log(contact)
+  // myContactList.addContact(contact).then(list => res.send(list));
+  myContactList.addContact(contact);
+  res.redirect("/contacts");
 });
 
 //PATCH ROUTE for updating contacts which can be found in POSTMAN
@@ -52,7 +59,8 @@ app.patch("/contacts/:contact_id", function(req, res) {
 
 //DELETE ROUTE for deleting a item 
 app.delete("/contacts/:contact_id", function(req, res) {
-  res.send(myContactList.deleteContact(req.params.contact_id));
+  //res.send(myContactList.deleteContact(req.params.contact_id));
+  res.redirect("/contacts");
 });
 
 //Server listening PORT assignment
