@@ -6,6 +6,10 @@ var _express2 = _interopRequireDefault(_express);
 
 var _ContactList = require("./ContactList");
 
+var _methodOverride = require("method-override");
+
+var _methodOverride2 = _interopRequireDefault(_methodOverride);
+
 var _bodyParser = require("body-parser");
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
@@ -14,6 +18,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const app = (0, _express2.default)();
 
+
 const myContactList = new _ContactList.ContactList("./my_list.json");
 
 
@@ -21,6 +26,7 @@ app.use(_bodyParser2.default.urlencoded({ extended: false }));
 //parse appliation JSON
 app.use(_bodyParser2.default.json());
 app.set("view engine", "ejs");
+app.use((0, _methodOverride2.default)("_method"));
 
 //GET ROUTE for HOME
 app.get("/", function (req, res) {
@@ -32,7 +38,8 @@ app.get("/", function (req, res) {
 app.get("/contacts", function (req, res) {
   //----- Checking whether requested query is empty or not -------
   if (!Object.keys(req.query).length) {
-    res.send(myContactList.list);
+    // res.send(myContactList.list);
+    res.render("contacts", { contacts: myContactList.list });
   } else {
     const filteredData = myContactList.list.filter(element => {
       return element.age == req.query.age;

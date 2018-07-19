@@ -1,6 +1,7 @@
 import express from "express";
 import { Contact, ContactList } from "./ContactList";
 const app = express();
+import methodOverride from 'method-override';
 
 const myContactList = new ContactList("./my_list.json");
 import bodyParser from "body-parser";
@@ -9,6 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //parse appliation JSON
 app.use(bodyParser.json());
 app.set("view engine","ejs");
+app.use(methodOverride("_method"));
 
 //GET ROUTE for HOME
 app.get("/", function(req, res) {
@@ -20,7 +22,8 @@ app.get("/", function(req, res) {
 app.get("/contacts", function(req, res) {
   //----- Checking whether requested query is empty or not -------
   if (!Object.keys(req.query).length) {
-    res.send(myContactList.list);
+    // res.send(myContactList.list);
+    res.render("contacts", {contacts :myContactList.list});
   } else {
     const filteredData = myContactList.list.filter(element => {
       return element.age == req.query.age;
