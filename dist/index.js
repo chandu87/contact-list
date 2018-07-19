@@ -55,6 +55,9 @@ app.get("/test", function (req, res) {
 app.get("/contacts/add", function (req, res) {
   res.render("add");
 });
+app.get("/contacts/edit", function (req, res) {
+  res.render("edit", { contacts: myContactList.list });
+});
 
 //POST ROUTE for Adding contacts
 app.post("/contacts", function (req, res) {
@@ -76,6 +79,7 @@ app.patch("/contacts/:contact_id", function (req, res) {
 //DELETE ROUTE for deleting a item 
 app.delete("/contacts/:contact_id", function (req, res) {
   //res.send(myContactList.deleteContact(req.params.contact_id));
+  myContactList.deleteContact(req.params.contact_id);
   res.redirect("/contacts");
 });
 
