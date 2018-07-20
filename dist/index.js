@@ -58,7 +58,15 @@ app.get("/contacts/add", function (req, res) {
 app.get("/contacts/edit", function (req, res) {
   res.render("edit", { contacts: myContactList.list });
 });
-
+app.get("/contacts/update/:contact_id", function (req, res) {
+  const ids = myContactList.list.map(contact => contact.id);
+  const contactId = ids.indexOf(req.params.contact_id);
+  const updateContact = myContactList.list[contactId];
+  // console.log(contactId);
+  // console.log(myContactList.list);
+  // console.log(updateContact);
+  res.render("update", { updateContact: updateContact });
+});
 //POST ROUTE for Adding contacts
 app.post("/contacts", function (req, res) {
   // console.log(req.body);
@@ -73,7 +81,8 @@ app.post("/contacts", function (req, res) {
 //PATCH ROUTE for updating contacts which can be found in POSTMAN
 app.patch("/contacts/:contact_id", function (req, res) {
   const contactToUpdate = new _ContactList.Contact(req.body);
-  res.send(myContactList.updateContact(req.params.contact_id, contactToUpdate));
+  myContactList.updateContact(req.params.contact_id, contactToUpdate);
+  res.redirect("/contacts");
 });
 
 //DELETE ROUTE for deleting a item 
